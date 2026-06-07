@@ -6,9 +6,14 @@ JDK 1.4 or later is needed.
 ### 0. If you have Apache Ant
 
 Run the sample-all task.
+
+```
+% ant sample-all
+```
+
 Otherwise, follow the instructions below.
 
-### 1. Move to the directory where this `Examples.md` file is located.
+### 1. Move to the directory `./examples`.
 
 In the following instructions, we assume that the `javassist.jar`
 file is included in the class path.
@@ -16,7 +21,7 @@ For example, the javac and java commands must receive
 the following `classpath` option:
 
 ```
--classpath ".:javassist.jar"
+-classpath "./target:../javassist.jar"
 ```
 
 If the operating system is Windows, the path
@@ -30,21 +35,20 @@ If you don't want to use the class-path option, you can make
 environment:
 
 ```
-export CLASSPATH=.:javassist.jar
+export CLASSPATH=./target:../javassist.jar
 ```
 
 or if the operating system is Windows:
 
 ```
-set CLASSPATH=.;javassist.jar
+set CLASSPATH=./target;../javassist.jar
 ```
 
-Otherwise, you can copy  `javassist.jar` to the directory
-<_java-home_>`/jre/lib/ext`.
+Then, compile `src/main/javassist/tools/**/*.java`:
 
-
-<_java-home_> depends on the system.  It is usually
-`/usr/local/java` or `c:\j2sdk1.4\`, etc.
+```
+javac -d target -cp ./target:../javassist.jar src/main/javassist/tools/**/*.java
+```
 
 ### 2. `sample/Test.java`
 
@@ -53,7 +57,7 @@ This is a very simple program using Javassist.
 To run, type the commands:
 
 ```
-% javac sample/Test.java
+% javac -d target sample/Test.java
 % java sample.Test
 ```
 
@@ -69,7 +73,7 @@ is called on the Person object.
 To run, type the commands:
 
 ```
-% javac sample/reflect/*.java
+% javac -d target sample/reflect/*.java
 % java javassist.tools.reflect.Loader sample.reflect.Main Joe
 ```
 
@@ -101,7 +105,7 @@ This is another example of reflective programming.
 To run, type the commands:
 
 ```
-% javac sample/duplicate/*.java
+% javac -d target sample/duplicate/*.java
 % java sample.duplicate.Main
 ```
 
@@ -122,9 +126,9 @@ a vector of a given type at compile time.
 To run, type the commands:
 
 ```
-% javac sample/vector/*.java
+% javac -d target sample/preproc/*.java sample/vector/*.java
 % java sample.preproc.Compiler sample/vector/Test.j
-% javac sample/vector/Test.java
+% javac -d target sample/vector/Test.java
 % java sample.vector.Test
 ```
 
@@ -139,7 +143,7 @@ This demonstrates the `javassist.rmi` package.
 To run, type the commands:
 
 ```
-% javac sample/rmi/*.java
+% javac -d target sample/rmi/*.java
 % java sample.rmi.Counter 5001
 ```
 
@@ -165,7 +169,7 @@ existing class file under some restriction.
 To run, type the commands:
 
 ```
-% javac sample/evolve/*.java
+% javac -d target sample/evolve/*.java
 % java sample.evolve.DemoLoader 5003
 ```
 

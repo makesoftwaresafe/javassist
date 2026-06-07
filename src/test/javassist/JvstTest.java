@@ -1160,7 +1160,6 @@ public class JvstTest extends JvstTestRoot {
         suite.addTestSuite(javassist.compiler.CompTest.class);
         suite.addTestSuite(javassist.SetterTest.class);
         suite.addTestSuite(javassist.bytecode.InsertGap0.class);
-        suite.addTestSuite(javassist.tools.reflect.LoaderTest.class);
         suite.addTestSuite(javassist.tools.CallbackTest.class);
         suite.addTestSuite(testproxy.ProxyTester.class);
         suite.addTestSuite(testproxy.ProxyFactoryPerformanceTest.class); // remove?

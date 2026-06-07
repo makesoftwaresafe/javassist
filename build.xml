@@ -6,7 +6,7 @@
 
 <project name="javassist" default="jar" basedir=".">
 
-  <property name="dist-version" value="javassist-3.31.0-GA"/>
+  <property name="dist-version" value="javassist-3.32.0-GA"/>
 
   <property environment="env"/>
   <property name="target.jar" value="javassist.jar"/>
@@ -20,6 +20,7 @@
   <property name="test.build.dir" value="${build.dir}/test-classes"/>
   <property name="test.run.dir" value="${build.dir}/runtest"/>
   <property name="test.reports.dir" value = "${build.dir}/test-output"/>
+  <property name="examples.dir" value="${basedir}/examples"/>
 
   <property name="run.dir" value="${build.classes.dir}"/>
 
@@ -144,7 +145,25 @@
   </target>
 
   <target name="sample" depends="compile">
-    <javac srcdir="${basedir}"
+    <javac srcdir="${examples.dir}/src/main"
+           destdir="${build.classes.dir}"
+           debug="on"
+           deprecation="on"
+           optimize="off"
+           includes="javassist/**">
+            <classpath refid="classpath"/>
+    </javac>
+
+    <javac srcdir="${examples.dir}/src/test"
+           destdir="${build.classes.dir}"
+           debug="on"
+           deprecation="on"
+           optimize="off"
+           includes="javassist/**">
+            <classpath refid="test.compile.classpath"/>
+    </javac>
+
+    <javac srcdir="${examples.dir}"
            destdir="${build.classes.dir}"
            debug="on"
            deprecation="on"
@@ -154,10 +173,10 @@
             <classpath refid="classpath"/>
     </javac>
 
-    <copy file="sample/vector/Test.j"
+    <copy file="examples/sample/vector/Test.j"
           todir="${build.classes.dir}/sample/vector"/>
 
-    <javac srcdir="${basedir}/sample/evolve"
+    <javac srcdir="${examples.dir}/sample/evolve"
            destdir="${build.classes.dir}/sample/evolve/"
            debug="on"
            deprecation="on"
@@ -166,14 +185,14 @@
             <classpath refid="classpath"/>
     </javac>
     <copy todir="${build.classes.dir}/sample/evolve">
-      <fileset dir="sample/evolve"/>
+      <fileset dir="${examples.dir}/sample/evolve"/>
     </copy>
     <copy file="${build.classes.dir}/sample/evolve/WebPage.class"
           tofile="${build.classes.dir}/sample/evolve/WebPage.class.0"/>
     <copy file="${build.classes.dir}/sample/evolve/sample/evolve/WebPage.class"
           tofile="${build.classes.dir}/sample/evolve/WebPage.class.1"/>
 
-    <javac srcdir="${basedir}/sample/hotswap"
+    <javac srcdir="${examples.dir}/sample/hotswap"
            destdir="${build.classes.dir}"
            debug="on"
            deprecation="on"
@@ -182,7 +201,7 @@
             <classpath refid="classpath"/>
     </javac>
     <mkdir dir="${build.classes.dir}/logging"/>
-    <javac srcdir="${basedir}/sample/hotswap/logging"
+    <javac srcdir="${examples.dir}/sample/hotswap/logging"
            destdir="${build.classes.dir}/logging"
            debug="on"
            deprecation="on"
@@ -192,6 +211,17 @@
     </javac>
     <echo>To run the sample programs without ant, change the current directory 
 to ${build.classes.dir}.</echo>
+  </target>
+
+  <target name="run-sample-test" depends="sample">
+    <junit fork="true" printsummary="true" dir="${test.run.dir}">
+      <classpath refid="test.classpath"/>
+      <formatter type="xml" extension=".xml"/>
+      <test name="javassist.tools.reflect.LoaderTest" outfile="TestLog" />
+    </junit>
+    <java fork="true" dir="${test.run.dir}" classname="javassist.tools.reflect.ClassMetaobjectTest">
+      <classpath refid="test.classpath"/>
+    </java>
   </target>
 
   <target name="jar" depends="compile18">
@@ -234,7 +264,7 @@ Copyright (C) 1999- Shigeru Chiba. All Rights Reserved.</i>]]></bottom>
     <zip zipfile="${dist-version}.zip">
        <zipfileset dir="${basedir}" prefix="${dist-version}">
        	  <include name="html/**"/>
-       	  <include name="sample/**"/>
+       	  <include name="examples/**"/>
        	  <include name="src/main/**"/>
        	  <include name="tutorial/**"/>
        	  <include name="*.html"/>
@@ -301,7 +331,7 @@ Copyright (C) 1999- Shigeru Chiba. All Rights Reserved.</i>]]></bottom>
   </target>
 
   <target name = "sample-rmi" depends="sample" >
-    <echo>** Please open sample/rmi/webdemo.html with your browser **</echo>
+    <echo>** Please open examples/sample/rmi/webdemo.html with your browser **</echo>
     <java fork="true" dir="${run.dir}" classname="sample.rmi.Counter">
       <classpath refid="classpath"/>
       <arg value="5001" />
