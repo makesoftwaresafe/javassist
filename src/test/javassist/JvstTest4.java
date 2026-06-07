@@ -751,10 +751,9 @@ public class JvstTest4 extends JvstTestRoot {
         // try it using classloader of TestDescForName Desc.useContextClassLoader = false;
         assertTrue(javassist.runtime.Desc.getClazz("[Ljava.lang.String;") != null);
         //Thread.currentThread().setContextClassLoader(TestDescForName.class.getClassLoader());
-        boolean old = javassist.runtime.Desc.useContextClassLoader;
-        javassist.runtime.Desc.useContextClassLoader = true;
+        javassist.runtime.Desc.setUseContextClassLoaderLocally();
         assertTrue(javassist.runtime.Desc.getClazz("[Ljava.lang.String;") != null);
-        javassist.runtime.Desc.useContextClassLoader = old;
+        javassist.runtime.Desc.resetUseContextClassLoaderLocally();
     }
 
     public void testJIRA166() throws Exception {
