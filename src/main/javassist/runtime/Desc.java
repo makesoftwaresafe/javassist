@@ -31,8 +31,10 @@ public class Desc {
      * <pre>Thread.currentThread().getContextClassLoader().loadClass()</pre>
      * <p>If false, it is loaded by <code>Class.forName()</code>.
      * The default value is false.
+     * 
+     * @deprecated  since 3.32. Use {@link setUseContextClassLoaderLocally()} instead.
      */
-    public static boolean useContextClassLoader = false;
+    private static boolean useContextClassLoader = false;
 
     private static final ThreadLocal<Boolean> USE_CONTEXT_CLASS_LOADER_LOCALLY = new ThreadLocal<Boolean>() {
         @Override
