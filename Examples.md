@@ -1,6 +1,11 @@
 How to run program examples
 ---------------------------
 
+**Security notice:**
+_All the programs are for demonstration only.  They are not for production.
+Additional security considerations and precautions are required
+when applying these program in a production environment._
+
 JDK 1.4 or later is needed.
 
 ### 0. If you have Apache Ant

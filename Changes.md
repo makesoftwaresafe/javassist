@@ -4,6 +4,8 @@
 
 * Excludes javassist.tools.{reflect,rmi,web}.  They are now included in ./examples/src/main.
 
+* Disables javassist.runtime.Desc.useContextClassLoader
+
 ### version 3.31.0 on April 20, 2026
 
 * GitHub PR #480, #484, #486, #491, #492, #495, #506
