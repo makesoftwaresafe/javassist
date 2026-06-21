@@ -67,7 +67,11 @@ public class AttributeInfo {
         constPool = cp;
         name = n;
         int len = in.readInt();
-        info = new byte[len];
+        try {
+            info = new byte[len];
+        } catch (Throwable e) {
+            throw new IOException("Error reading attribute info for " + n + " with size " + len, e);
+        }
         if (len > 0)
             in.readFully(info);
     }
