@@ -1,6 +1,6 @@
 ### Changes
 
-### version 3.32
+### version 3.32 on June 21, 2026
 
 * Excludes javassist.tools.{reflect,rmi,web}.  They are now included in ./examples/src/main.
 
